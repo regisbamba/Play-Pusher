@@ -47,7 +47,6 @@ You can also exclude a socket (usually the sender) from receiving the message by
 
 bc. pusher.trigger("my_channel", "event", "my_message", "socket_id");
 
-
 h3. Generating the authentication string
 
 When a socket tries to connect to a private channel, it will make a POST request to **/pusher/auth** on your server. You will need to generate and return a JSON object containing the auth signature that allows the socket to connect to the private channel. That is really easy :
@@ -55,19 +54,18 @@ When a socket tries to connect to a private channel, it will make a POST request
 bc. pusher.auth(channelName, socketId);
 
 h4. Example
+
 In your controller you can have something like this:
 
-bc.
-String channelName = params.get("channel_name");
+bc. String channelName = params.get("channel_name");
 String socketId = params.get("socket_id);
 renderJSON(pusher.auth(channelName, socketId));
-
 
 You can also generate an auth signature to allow a socket to connect to a presence channel. In that case you will need to pass an **user id** and some **user info**. The **user info** can be any object, it will automatically be serialized.
 
 h4. Example
-bc.
-HashMap<String, String> userInfo = new HashMap();
+
+bc. HashMap<String, String> userInfo = new HashMap();
 userInfo.put("name","John Doe");
 userInfo.put("email","john@example.com")
 
