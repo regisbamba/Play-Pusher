@@ -96,8 +96,8 @@ public class Pusher {
      * @param String userId
      * @return The auth signature
      */
-    private String auth(String channel, String socketId, String userId) {
-        return this.socketAuth(channel, socketId, userId, null);
+    private String auth(String channel, String socketId) {
+        return this.socketAuth(channel, socketId, null, null);
     }
 
 
@@ -111,7 +111,7 @@ public class Pusher {
      * @return The auth signature
      */
     public String presence(String channel, String socketId, String userId, Object userInfo) {
-        return this.socket_auth(channel, socketId, userId, userInfo);
+        return this.socketAuth(channel, socketId, userId, userInfo);
     }
 
     /**
@@ -127,26 +127,28 @@ public class Pusher {
 
         Gson gson = new Gson();
 
-        HashMap<String, Object> channelData = new HashMap();
+        // Sent back to the client
+        String jsonChannelData = null;
+
+        // Used to generate the auth signature
+        String jsonUserData = null;
 
         if (userId != null) {
+            HashMap<String, Object> channelData = new HashMap();
             channelData.put("user_id", userId);
             if (userInfo != null) {
                 channelData.put("user_info", userInfo);
             }
+           
+            jsonChannelData = gson.toJson(channelData);
+            jsonUserData = jsonChannelData.replace(":", "=>").replace(",", ", "); // For some reason, the auth signature is only valid when I do this.
         }
 
-        // Sent back to the client
-        String jsonChannelData = gson.toJson(channelData);
-
-        // Used to generate the auth signature
-        String jsonUserData = jsonChannelData.replace(":", "=>").replace(",", ", "); // For some reason, the auth signature is only valid when I do this.
-
-        String signature = sha256((socketId + ":"  + channel + ":" + jsonUserData), this.secret);
+        String signature = sha256((socketId + ":"  + channel + (jsonUserData != null ? ":" + jsonUserData : "")), this.secret);
 
         return "{ \"auth\" : \"" + this.key + ":" + signature + "\"" + (jsonChannelData != null ? " , \"channel_data\" : " + jsonChannelData : "") + "}";
-
     }
+
 
     /*** Utility methods ***/
 
