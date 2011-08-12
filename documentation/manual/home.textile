@@ -47,6 +47,7 @@ You can also exclude a socket (usually the sender) from receiving the message by
 
 bc. pusher.trigger("my_channel", "event", "my_message", "socket_id");
 
+
 h3. Generating the authentication string
 
 When a socket tries to connect to a private channel, it will make a POST request to **/pusher/auth** on your server. You will need to generate and return a JSON object containing the auth signature that allows the socket to connect to the private channel. That is really easy :
@@ -70,6 +71,5 @@ userInfo.put("name","John Doe");
 userInfo.put("email","john@example.com")
 
 renderJSON(pusher.auth(channelName, socketId, userId, userInfo));
-
 
 Check out the "Pusher Documentation":http://pusher.com/docs for more information.
