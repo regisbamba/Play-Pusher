@@ -96,7 +96,7 @@ public class Pusher {
      * @param String userId
      * @return The auth signature
      */
-    private String auth(String channel, String socketId) {
+    public String auth(String channel, String socketId) {
         return this.socketAuth(channel, socketId, null, null);
     }
 
