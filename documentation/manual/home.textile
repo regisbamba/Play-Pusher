@@ -46,7 +46,7 @@ In your controller you can have something like this:
 
 bc. String socketId = params.get("socket_id);
 String channelName = params.get("channel_name");
-renderJSON(pusher.auth(channelName, socketId));
+renderJSON(pusher.createAuthString(socketId, channelName));
 
 You can also generate an auth signature to allow a socket to connect to a presence channel. In that case you will need to pass a **PresenceChannelData** object which has a **userId** field and a **BasicUserInfo** field.
 
@@ -55,6 +55,6 @@ h4. Example
 bc. BasicUserInfo userInfo = new BasicUserInfo();
 userInfo.setName("Joe");
 PresenceChannelData channelData = new PresenceChannelData("userId", userInfo);
-renderJSON(pusher.auth(channelName, socketId, channelData));
+renderJSON(pusher.createAuthString(socketId, channelName, channelData));
 
 Check out the "Pusher Documentation":http://pusher.com/docs for more information.
