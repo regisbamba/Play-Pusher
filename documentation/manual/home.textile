@@ -69,7 +69,6 @@ h4. Example
 bc. HashMap<String, String> userInfo = new HashMap();
 userInfo.put("name","John Doe");
 userInfo.put("email","john@example.com")
-
 renderJSON(pusher.auth(channelName, socketId, userId, userInfo));
 
 Check out the "Pusher Documentation":http://pusher.com/docs for more information.
