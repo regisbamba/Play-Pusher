@@ -1,10 +1,22 @@
 h1. Pusher module
 
-This module lets you easily interact with  the "Pusher":http://wwww.pusher.com REST API from your Play application.
+This module lets you easily interact with  the "Pusher":http://www.pusher.com REST API from your Play application.
+
+Pusher is a hosted API for quickly, easily and securely adding scalable realtime functionality via WebSockets to web and mobile apps.
+
+If you would like to know how Pusher works, check out the "Pusher Documentation":http://pusher.com/docs for more information.
 
 h2. Usage
 
 Using it is very simple :
+
+bc. play install pusher
+
+Then update your dependencenies.yml :
+
+bc. - play -> pusher 0.1
+
+You can now easily interact with Pusher in your application
 
 bc. Pusher pusher = new Pusher(appId, key, secret)
 
